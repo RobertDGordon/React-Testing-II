@@ -1,9 +1,10 @@
 import React from 'react';
 import { render, fireEvent, waitForElement, wait } from '@testing-library/react'
 import App from './App';
+import { fetchMissions as mockFetchMissions }from './api/fetchMissions'
 
 jest.mock('./api/fetchMissions');
-console.log(mockFetchMissions)
+// console.log(mockFetchMissions)
 
 const missions = {
   data: [
@@ -33,12 +34,16 @@ const missions = {
 };
 
 test('app component fetches mission and renders it', async () => {
+  // console.log('missiins', missions)
   mockFetchMissions.mockResolvedValueOnce(missions)
-  const { getByText, queryAllByTestId, getByTestId } = render(<App/>)
 
-  const button = getByText(/get data/i);
+  const { getByText, queryAllByTestId } = render(<App/>);
+
+  const button = getByText(/get data/i);;
+
   fireEvent.click(button)
-  await wait()
+
   getByText(/we are fetching data/i);
-  expect(queryAllByTestId("mission")).toHaveLength(2);
+  await wait()
+    expect(queryAllByTestId("mission")).toHaveLength(2);
 });
