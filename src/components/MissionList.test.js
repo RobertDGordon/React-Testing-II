@@ -145,11 +145,17 @@ const missions = [
     }
   ];
 
-  test('Missions list shows data', ()=> {
+  test('Mission list shows data', ()=> {
       const { queryAllByTestId, rerender } = render(
           <MissionsList error="" missions={[]} />
       );
 
       expect(queryAllByTestId("mission")).toStrictEqual([]);
       expect(queryAllByTestId("mission")).toHaveLength(0);
+
+      rerender(
+          <MissionsList error="" missions={missions} />
+      );
+
+      expect(queryAllByTestId("mission")).toHaveLength(10);
   })
