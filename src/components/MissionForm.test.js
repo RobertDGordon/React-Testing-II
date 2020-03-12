@@ -31,4 +31,4 @@ test("MissionForm trans state", () => {
     getByText(/we are fetching data/i);
     
     expect(queryByText(/get data/i)).toBeNull();
-})
+});
